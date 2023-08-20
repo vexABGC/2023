@@ -1,0 +1,4 @@
+Torque when rotating around the arm to get to the highest elevation (if we use arm elavation)
+Movement speed with friction taken into account
+Motor output calculations(speed/force)
+Joystick math (acceleration, etc)
