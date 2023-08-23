@@ -1,9 +1,11 @@
 //includes
 #include "main.h"
 #include "display/lvgl.h"
-#include "../src/Control/InputState.cpp"
-#include "../src/Graphics/Button.cpp"
+#include "../src/globals.hpp"
+#include "../src/Control/InputState.hpp"
+#include "../src/Graphics/Button.hpp"
 #include "../src/Math/Vector2.hpp"
+#include "../src/Control/Movement.hpp"
 #include <string>
 #include <vector>
 #include <fstream>
@@ -15,42 +17,22 @@ using std::getline;
 using std::stoi;
 using std::string;
 
-//definitions and globals
-#define time_delay 20 //milliseconds
-#define left_mtr_port 1
-#define right_mtr_port 2
+//local globals
 Button autonomousMenuButton;
 Button mainMenuButton;
 Button statusMenuButton;
-
-pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::Motor left_mtr(left_mtr_port);
-pros::Motor right_mtr(right_mtr_port);
-
-std::string autonomousCodeLocation = "/usd/autonomousMovement.routine";
 bool shouldTrack = false;
 bool previousShouldTrack = shouldTrack;
 vector<string> emulatedInputLines;
 
-//movement code
-void Movement(int controllerInputs[16]){
-    //take in joystick inputs
-    Vector2<int> leftJoystick(controllerInputs[0], controllerInputs[1]);
-    Vector2<int> rightJoystick(controllerInputs[2], controllerInputs[3]);
-
-    //update motors
-    left_mtr.move(leftJoystick.getY());
-    right_mtr.move(rightJoystick.getY());
-}
-
 //initialization of program code, NOTE: blocks other competition modes
 void initialize() {
 	//create menu tabs. autonomous menu button, main button, and status label
-	autonomousMenuButton.Init(lv_scr_act(), "Autonomous", LV_ALIGN_IN_TOP_LEFT, 0, 0, 120, 80);
-	mainMenuButton.Init(lv_scr_act(), "Main Menu", LV_ALIGN_IN_LEFT_MID, 0, 0, 120, 80);
-	statusMenuButton.Init(lv_scr_act(), "Loading", LV_ALIGN_IN_BOTTOM_LEFT, 0, 0, 120, 80);
+	//autonomousMenuButton.Init(lv_scr_act(), "Autonomous", LV_ALIGN_IN_TOP_LEFT, 0, 0, 120, 80);
+	//mainMenuButton.Init(lv_scr_act(), "Main Menu", LV_ALIGN_IN_LEFT_MID, 0, 0, 120, 80);
+	statusMenuButton.Init(lv_scr_act(), "Loading", 0, lv_action_t(), LV_ALIGN_CENTER, 0, 0, 0, 0);
 
-	//create record movement label and button(not yet implemented)
+	//create record button(not yet implemented)
 
 	//load file and split input lines
 	string line;
@@ -64,7 +46,7 @@ void initialize() {
 	};
 
 	//display ready
-	statusMenuButton.setText("Ready");
+	//statusMenuButton.SetText("Ready");
 }
 //disabled code, runs during the disabled state of Field Management System or the VEX Competition Switch, following either autonomous or opcontrol
 void disabled() {}
@@ -76,11 +58,7 @@ void competition_initialize() {}
 //autonomous mode code
 void autonomous() {
 	//disable screen buttons, and notify user of disabled buttons(in event of accidental locking)
-	statusMenuButton.setText("Locked");
-
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor left_mtr(left_mtr_port);
-	pros::Motor right_mtr(right_mtr_port);
+	//statusMenuButton.SetText("Locked");
 
 	//iterate through each input line
 	for (int i = 0; i < emulatedInputLines.size(); i++){
@@ -151,7 +129,7 @@ void opcontrol() {
 			}
 			trackerCount += 1;
 			//update screen
-			//master.set_text("Auto: " + trackerCount);
+			master.set_text(0,0,"Auto: "+ trackerCount);
 			//track input
 			InputState inputState;
 			inputStates.push_back(inputState);
@@ -163,7 +141,7 @@ void opcontrol() {
 			//process tracked inputs into file output
 			string trackedInputsOutput = "";
 			for (int i = 0; i < inputStates.size(); i++){
-				trackedInputsOutput.append(inputStates[i].CompileSaveLine() + "\n");
+				trackedInputsOutput.append(inputStates[i].CompileSaveLine(master) + "\n");
 			}
 			trackedInputsOutput.pop_back();
 

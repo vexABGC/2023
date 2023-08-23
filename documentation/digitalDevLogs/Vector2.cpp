@@ -16,4 +16,4 @@ class Vector2 {
 };
 
 //example
-Vector2<int> testVector = new Vector2<int>(0, 1);
+Vector2<int> testVector2(0, 1);

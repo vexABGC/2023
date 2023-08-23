@@ -1,9 +1,12 @@
-//imports
+//includes
+#include "main.h"
+#include "display/lvgl.h"
+#include "../src/Control/InputState.cpp"
+#include "../src/Graphics/Button.cpp"
+#include "../src/Math/Vector2.hpp"
+#include <string>
 #include <vector>
 #include <fstream>
-#include <string>
-#include "../src/Globals.hpp"
-#include "../src/Math/Vector2.hpp"
 
 //using definitions
 using std::vector;
@@ -12,12 +15,33 @@ using std::getline;
 using std::stoi;
 using std::string;
 
-//file globals
+//definitions and globals
+#define time_delay 20 //milliseconds
+#define left_mtr_port 1
+#define right_mtr_port 2
+Button autonomousMenuButton;
+Button mainMenuButton;
+Button statusMenuButton;
+
+pros::Controller master(pros::E_CONTROLLER_MASTER);
+pros::Motor left_mtr(left_mtr_port);
+pros::Motor right_mtr(right_mtr_port);
+
+std::string autonomousCodeLocation = "/usd/autonomousMovement.routine";
 bool shouldTrack = false;
 bool previousShouldTrack = shouldTrack;
 vector<string> emulatedInputLines;
 
+//movement code / function
+void Movement(int controllerInputs[16]){
+    //take in joystick inputs
+    Vector2<int> leftJoystick(controllerInputs[0], controllerInputs[1]);
+    Vector2<int> rightJoystick(controllerInputs[2], controllerInputs[3]);
 
+    //update motors
+    left_mtr.move(leftJoystick.getY());
+    right_mtr.move(rightJoystick.getY());
+}
 
 //file loading(INSIDE VEX INITIALIZE)
 //load file and split input lines
@@ -60,29 +84,52 @@ for (int i = 0; i < emulatedInputLines.size(); i++){
 
 
 //tracking code and saving (INSIDE VEX OPERATOR CONTROL)
+//iterate through each input line
+for (int i = 0; i < emulatedInputLines.size(); i++){
+	//get input line string and process into emulated inputs
+	string inputLine = emulatedInputLines.at(i);
+
+	//get current input stage's emulated inputs
+	int emulatedInput[16];
+	int count = 0;
+	string separator = ",";
+	string splitPart;
+	size_t pos = 0;
+	while ((pos = inputLine.find(separator)) != std::string::npos) {
+	    splitPart = inputLine.substr(0, pos);
+	    std::cout << splitPart << std::endl;
+	    inputLine.erase(0, pos + separator.length());
+	}
+	
+	//call movement with emulated movement
+	Movement(emulatedInput);
+	
+	//delay
+	pros::delay(time_delay);
+}
+
+//driver control mode
 //setup input tracker
 vector<InputState> inputStates;
-int controllerInputs[16];
 int trackerCount = 0;
 while (true) {
-	//get inputs
-	controllerInputs = {
-        controller.get_analog(ANALOG_LEFT_X),  //input #00
-        controller.get_analog(ANALOG_LEFT_Y),  //input #01
-        controller.get_analog(ANALOG_RIGHT_X), //input #02
-        controller.get_analog(ANALOG_RIGHT_Y), //input #03
-        controller.get_digital(DIGITAL_UP),    //input #04
-        controller.get_digital(DIGITAL_DOWN),  //input #05
-        controller.get_digital(DIGITAL_LEFT),  //input #06
-        controller.get_digital(DIGITAL_RIGHT), //input #07
-        controller.get_digital(DIGITAL_A),     //input #08
-        controller.get_digital(DIGITAL_B),     //input #09
-        controller.get_digital(DIGITAL_X),     //input #10
-        controller.get_digital(DIGITAL_Y),     //input #11
-        controller.get_digital(DIGITAL_L1),    //input #12
-        controller.get_digital(DIGITAL_L2),    //input #13
-        controller.get_digital(DIGITAL_R1),    //input #14
-        controller.get_digital(DIGITAL_R2)     //input #15
+	int controllerInputs[16] = {
+        master.get_analog(ANALOG_LEFT_X),  //input #00
+        master.get_analog(ANALOG_LEFT_Y),  //input #01
+        master.get_analog(ANALOG_RIGHT_X), //input #02
+        master.get_analog(ANALOG_RIGHT_Y), //input #03
+        master.get_digital(DIGITAL_UP),    //input #04
+        master.get_digital(DIGITAL_DOWN),  //input #05
+        master.get_digital(DIGITAL_LEFT),  //input #06
+        master.get_digital(DIGITAL_RIGHT), //input #07
+        master.get_digital(DIGITAL_A),     //input #08
+        master.get_digital(DIGITAL_B),     //input #09
+        master.get_digital(DIGITAL_X),     //input #10
+        master.get_digital(DIGITAL_Y),     //input #11
+        master.get_digital(DIGITAL_L1),    //input #12
+        master.get_digital(DIGITAL_L2),    //input #13
+        master.get_digital(DIGITAL_R1),    //input #14
+        master.get_digital(DIGITAL_R2)     //input #15
     };
 
 	//pass to movement function
@@ -98,11 +145,11 @@ while (true) {
 			shouldTrack = false;
 		}
 		trackerCount += 1;
-		//update screen
-		master.set_text("Auto: " + trackerCount);
 
+		//update screen
+		//master.set_text("Auto: " + trackerCount);
 		//track input
-		InputState inputState = new InputState(master);
+		InputState inputState;
 		inputStates.push_back(inputState);
 	}else if((!shouldTrack) and previousShouldTrack){
 		//just ended tracking should save our tracked inputs
@@ -117,24 +164,11 @@ while (true) {
 		trackedInputsOutput.pop_back();
 
 		//save processed tracked inputs
-		FILE* usd_input_save = fopen(autonomousCodeLocation, "w");
-		fputs(trackedInputsOutput, usd_input_save);
+		FILE* usd_input_save = fopen(autonomousCodeLocation.c_str(), "w");
+		fputs(trackedInputsOutput.c_str(), usd_input_save);
 		fclose(usd_input_save);
 	}
 
 	//wait 20 milliseconds to next op control period
 	pros::delay(time_delay);
-};
-
-
-
-//movement code(SEPARATE FILE)
-void Movement(int[16] controllerInputs){
-    //take in joystick inputs
-    Vector2<int> leftJoystick = new Vector2<int>(controllerInputs[0], controllerInputs[1]);
-    Vector2<int> rightJoystick = new Vector2<int>(controllerInputs[2], controllerInputs[3]);
-
-    //update motors
-    left_mtr.move(leftJoystick.getY());
-    right_mtr.move(rightJoystick.getY());
 }
