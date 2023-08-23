@@ -1,7 +1,7 @@
 #include "main.h"
 #include "../src/Control/InputState.hpp"
 #include <iomanip>
-std::string InputSate::CompileSaveLine(pros::Controller controller){
+std::string InputState::CompileSaveLine(pros::Controller controller){
     //store inputs as array of ints
     int inputs[16] = {
         controller.get_analog(ANALOG_LEFT_X),

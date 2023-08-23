@@ -1,4 +1,4 @@
-#include "main.h";
+#include "main.h"
 
 //DECLARATIONS ONLY
 //other declarations
@@ -6,6 +6,9 @@ extern int time_delay;
 
 //autonomous locations
 extern std::string autonomousCodeLocation;
+
+//regular globals
+extern int time_delay;
 
 //ports
 extern int left_mtr_port;
