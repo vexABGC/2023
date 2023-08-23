@@ -1,4 +1,4 @@
-#include "../src/RobotControlMethods/controlGlobals.hpp"
+#include "../src/ControlPeriodMethods/controlGlobals.hpp"
 #include <vector>
 Button autonomousMenuButton;
 Button mainMenuButton;

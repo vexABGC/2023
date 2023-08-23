@@ -1,10 +1,10 @@
 //includes
 #include "main.h"
-#include "../src/RobotControlMethods/initialize.hpp"
-#include "../src/RobotControlMethods/disabled.hpp"
-#include "../src/RobotControlMethods/competitionInitialize.hpp"
-#include "../src/RobotControlMethods/autonomous.hpp"
-#include "../src/RobotControlMethods/operatorControl.hpp"
+#include "../src/ControlPeriodMethods/initialize.hpp"
+#include "../src/ControlPeriodMethods/disabled.hpp"
+#include "../src/ControlPeriodMethods/competitionInitialize.hpp"
+#include "../src/ControlPeriodMethods/autonomous.hpp"
+#include "../src/ControlPeriodMethods/operatorControl.hpp"
 
 //initialization of program code, NOTE: blocks other competition modes
 void initialize() {initializeMethod();}

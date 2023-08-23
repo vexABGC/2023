@@ -1,5 +1,5 @@
-#include "../src/RobotControlMethods/autonomous.hpp"
-#include "../src/RobotControlMethods/controlGlobals.hpp"
+#include "../src/ControlPeriodMethods/autonomous.hpp"
+#include "../src/ControlPeriodMethods/controlGlobals.hpp"
 #include "../src/Control/Movement.hpp"
 #include "../src/globals.hpp"
 //autonomous mode code

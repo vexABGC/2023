@@ -1,6 +1,6 @@
-#include "../src/RobotControlMethods/operatorControl.hpp"
+#include "../src/ControlPeriodMethods/operatorControl.hpp"
 #include "../src/globals.hpp"
-#include "../src/RobotControlMethods/controlGlobals.hpp"
+#include "../src/ControlPeriodMethods/controlGlobals.hpp"
 #include "../src/Control/InputState.hpp"
 #include "../src/Control/Movement.hpp"
 #include <vector>

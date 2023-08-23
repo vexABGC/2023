@@ -1,8 +1,8 @@
 #include "main.h"
 #include <fstream>
 #include "../src/globals.hpp"
-#include "../src/RobotControlMethods/controlGlobals.hpp"
-#include "../src/RobotControlMethods/initialize.hpp"
+#include "../src/ControlPeriodMethods/controlGlobals.hpp"
+#include "../src/ControlPeriodMethods/initialize.hpp"
 //initialization of program code, NOTE: blocks other competition modes
 void initializeMethod(){
     //create menu tabs. autonomous menu button, main button, and status label
