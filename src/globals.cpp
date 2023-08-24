@@ -22,10 +22,10 @@ int right_back_mtr_port = 4;
 //hardware
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Motor left_front_mtr(left_front_mtr_port);
-pros::Motor left_back_mtr(left_front_mtr_port);
+pros::Motor left_back_mtr(left_back_mtr_port);
 pros::Motor right_front_mtr(right_front_mtr_port);
-pros::Motor right_back_mtr(right_front_mtr_port);
+pros::Motor right_back_mtr(right_back_mtr_port);
 
 //hardware groups
 pros::Motor_Group left_mtrs({left_front_mtr, left_back_mtr});
-pros::Motor_Group right_mtrs({left_front_mtr, right_back_mtr});
+pros::Motor_Group right_mtrs({right_front_mtr, right_back_mtr});
