@@ -19,18 +19,18 @@ using std::string;
 #define time_delay 20 //milliseconds
 #define left_mtr_port 1
 #define right_mtr_port 2
-Button autonomousMenuButton;
-Button mainMenuButton;
-Button statusMenuButton;
+Button autonomous_menu_button;
+Button main_menu_button;
+Button status_menu_button;
 
 pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Motor left_mtr(left_mtr_port);
 pros::Motor right_mtr(right_mtr_port);
 
-std::string autonomousCodeLocation = "/usd/autonomousMovement.routine";
-bool shouldTrack = false;
-bool previousShouldTrack = shouldTrack;
-vector<string> emulatedInputLines;
+std::string autonomous_code_location = "/usd/autonomousMovement.routine";
+bool should_track = false;
+bool previous_should_track = should_track;
+vector<string> emulated_input_lines;
 
 //movement code / function
 void Movement(int controllerInputs[16]){
@@ -46,11 +46,11 @@ void Movement(int controllerInputs[16]){
 //file loading(INSIDE VEX INITIALIZE)
 //load file and split input lines
 string line;
-ifstream inputFile(autonomousCodeLocation);
+ifstream inputFile(autonomous_code_location);
 if (inputFile.is_open()){
 	while (getline(inputFile, line))
 	{
-		emulatedInputLines.push_back(line);
+		emulated_input_lines.push_back(line);
 	}
 	inputFile.close();
 };
@@ -59,9 +59,9 @@ if (inputFile.is_open()){
 
 //file parsing and executing (INSIDE VEX AUTONOMOUS)
 //iterate through each input line
-for (int i = 0; i < emulatedInputLines.size(); i++){
+for (int i = 0; i < emulated_input_lines.size(); i++){
 	//get input line string and process into emulated inputs
-	string inputLine = emulatedInputLines.at(1);
+	string inputLine = emulated_input_lines.at(1);
 
 	//get current input stage's emulated inputs
 	int emulatedInput[16];
@@ -85,9 +85,9 @@ for (int i = 0; i < emulatedInputLines.size(); i++){
 
 //tracking code and saving (INSIDE VEX OPERATOR CONTROL)
 //iterate through each input line
-for (int i = 0; i < emulatedInputLines.size(); i++){
+for (int i = 0; i < emulated_input_lines.size(); i++){
 	//get input line string and process into emulated inputs
-	string inputLine = emulatedInputLines.at(i);
+	string inputLine = emulated_input_lines.at(i);
 
 	//get current input stage's emulated inputs
 	int emulatedInput[16];
@@ -136,13 +136,13 @@ while (true) {
 	Movement(controllerInputs);
 
 	//track input
-	if (shouldTrack){
+	if (should_track){
 		//update previous should track
-		previousShouldTrack = shouldTrack;
+		previous_should_track = should_track;
 
 		//check if should end tracking
 		if (trackerCount > 15 * 1000/time_delay) {
-			shouldTrack = false;
+			should_track = false;
 		}
 		trackerCount += 1;
 
@@ -151,10 +151,10 @@ while (true) {
 		//track input
 		InputState inputState;
 		inputStates.push_back(inputState);
-	}else if((!shouldTrack) and previousShouldTrack){
+	}else if((!should_track) and previous_should_track){
 		//just ended tracking should save our tracked inputs
 		//update previous should track
-		previousShouldTrack = false;
+		previous_should_track = false;
 
 		//process tracked inputs into file output
 		string trackedInputsOutput = "";
@@ -164,7 +164,7 @@ while (true) {
 		trackedInputsOutput.pop_back();
 
 		//save processed tracked inputs
-		FILE* usd_input_save = fopen(autonomousCodeLocation.c_str(), "w");
+		FILE* usd_input_save = fopen(autonomous_code_location.c_str(), "w");
 		fputs(trackedInputsOutput.c_str(), usd_input_save);
 		fclose(usd_input_save);
 	}

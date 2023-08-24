@@ -39,12 +39,12 @@ void operatorControlMethod(){
 		Movement(controllerInputs);
 
 		//track input
-		if (shouldTrack){
+		if (should_track){
 			//update previous should track
-			previousShouldTrack = shouldTrack;
+			previous_should_track = should_track;
 			//check if should end tracking
 			if (trackerCount > 15 * 1000/time_delay) {
-				shouldTrack = false;
+				should_track = false;
 			}
 			trackerCount += 1;
 			//update screen
@@ -52,10 +52,10 @@ void operatorControlMethod(){
 			//track input
 			InputState inputState;
 			inputStates.push_back(inputState);
-		}else if((!shouldTrack) and previousShouldTrack){
+		}else if((!should_track) and previous_should_track){
 			//just ended tracking should save our tracked inputs
 			//update previous should track
-			previousShouldTrack = false;
+			previous_should_track = false;
 
 			//process tracked inputs into file output
 			std::string trackedInputsOutput = "";
@@ -65,7 +65,7 @@ void operatorControlMethod(){
 			trackedInputsOutput.pop_back();
 
 			//save processed tracked inputs
-			FILE* usd_input_save = fopen(autonomousCodeLocation.c_str(), "w");
+			FILE* usd_input_save = fopen(autonomous_code_location.c_str(), "w");
 			fputs(trackedInputsOutput.c_str(), usd_input_save);
 			fclose(usd_input_save);
 		}

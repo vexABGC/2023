@@ -5,12 +5,12 @@
 //autonomous mode code
 void autonomousMethod(){
     //disable screen buttons, and notify user of disabled buttons(in event of accidental locking)
-	//statusMenuButton.SetText("Locked");
+	//status_menu_button.SetText("Locked");
 
 	//iterate through each input line
-	for (int i = 0; i < emulatedInputLines.size(); i++){
+	for (int i = 0; i < emulated_input_lines.size(); i++){
 		//get input line string and process into emulated inputs
-		std::string inputLine = emulatedInputLines.at(i);
+		std::string inputLine = emulated_input_lines.at(i);
 
 		//get current input stage's emulated inputs
 		int emulatedInput[16];

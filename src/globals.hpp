@@ -5,10 +5,11 @@
 extern int time_delay;
 
 //autonomous locations
-extern std::string autonomousCodeLocation;
+extern std::string autonomous_code_location;
 
 //regular globals
 extern int time_delay;
+extern int minimum_joystick;
 
 //ports
 extern int left_mtr_port;
