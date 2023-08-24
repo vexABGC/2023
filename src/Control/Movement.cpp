@@ -26,6 +26,6 @@ void Movement(int controllerInputs[16]){
     motorSides.add(leftJoystick.getY());
 
     //update motors
-    left_mtr.move(leftJoystick.getY());
-    right_mtr.move(rightJoystick.getY());
+    left_mtr.move(motorSides.getX());
+    right_mtr.move(motorSides.getY());
 }
