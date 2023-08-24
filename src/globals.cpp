@@ -14,10 +14,18 @@ int time_delay = 20;
 int minimum_joystick = 31;
 
 //ports
-int left_mtr_port = 1;
-int right_mtr_port = 2;
+int left_front_mtr_port = 1;
+int left_back_mtr_port = 2;
+int right_front_mtr_port = 3;
+int right_back_mtr_port = 4;
 
 //hardware
 pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::Motor left_mtr(left_mtr_port);
-pros::Motor right_mtr(right_mtr_port);
+pros::Motor left_front_mtr(left_front_mtr_port);
+pros::Motor left_back_mtr(left_front_mtr_port);
+pros::Motor right_front_mtr(right_front_mtr_port);
+pros::Motor right_back_mtr(right_front_mtr_port);
+
+//hardware groups
+pros::Motor_Group left_mtrs({left_front_mtr, left_back_mtr});
+pros::Motor_Group right_mtrs({left_front_mtr, right_back_mtr});
