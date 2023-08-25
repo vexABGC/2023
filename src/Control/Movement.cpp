@@ -1,5 +1,5 @@
 #include "main.h"
-#include "../src/Math/Vector2.hpp"
+#include "../Math/Vector2.hpp"
 #include "../src/Control/Movement.hpp"
 #include "../src/globals.hpp"
 void Movement(int controllerInputs[16]){
