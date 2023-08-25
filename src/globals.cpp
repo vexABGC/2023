@@ -11,13 +11,13 @@ std::string autonomous_code_location = "/usd/autonomousMovement.routine";
 
 //regular globals
 int time_delay = 20;
-int minimum_joystick = 31;
+int minimum_joystick = 30;
 
 //ports
-int left_front_mtr_port = 1;
-int left_back_mtr_port = 2;
-int right_front_mtr_port = 3;
-int right_back_mtr_port = 4;
+int left_front_mtr_port = 2;
+int left_back_mtr_port = 3;
+int right_front_mtr_port = 4;
+int right_back_mtr_port = 5;
 
 //hardware
 pros::Controller master(pros::E_CONTROLLER_MASTER);

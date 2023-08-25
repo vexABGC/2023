@@ -27,5 +27,4 @@ void Movement(int controllerInputs[16]){
 
     //update motors
     left_mtrs.move(motorSides.getX());
-    right_mtrs.move(motorSides.getY());
-}
+    right_mtrs.move(-motorSides.getY());
