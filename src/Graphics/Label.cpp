@@ -1,5 +1,5 @@
 #include "main.h"
-#include "../src/Graphics/Label.hpp"
+#include "Label.hpp"
 void Label::init(lv_obj_t* screen, std::string text, lv_align_t alignment, lv_coord_t shiftX, lv_coord_t shiftY){
     //create label and store
     this->label = lv_label_create(screen, NULL);
