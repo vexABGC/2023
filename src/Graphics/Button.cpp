@@ -1,4 +1,3 @@
-
 #include "Button.hpp"
 #include "Label.hpp"
 void Button::init(lv_obj_t* screen, std::string text, int buttonNum, lv_color_t buttonColor, lv_align_t alignment, lv_coord_t shiftX = 0, lv_coord_t shiftY = 0, int sizeX = 100, int sizeY = 100){

@@ -16,7 +16,7 @@ temp.errors
 *.ini
 .d/
 
-# Team
+# TEAM
 /*
 !.gitignore
 !README.md
