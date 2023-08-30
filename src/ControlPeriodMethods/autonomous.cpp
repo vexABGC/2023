@@ -41,12 +41,6 @@ void autonomousMethod(){
 			counter = counter + 1;
 		}
 
-		//print array
-		for (int j = 0; j < 16; j++){
-			std::cout<<emulatedInput[j]<<" ";
-		}
-		std::cout<<std::endl;
-
 		//call movement with emulated movement
 		Movement(emulatedInput);
 		

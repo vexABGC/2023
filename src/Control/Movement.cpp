@@ -3,10 +3,6 @@
 #include "../src/Control/Movement.hpp"
 #include "../src/globals.hpp"
 void Movement(int controllerInputs[16]){
-    for (int j = 0; j < 16; j++){
-        std::cout<<controllerInputs[j]<<"_";
-    }
-    std::cout<<std::endl;
     //Movement code goes here:
     //take in joystick inputs
     Vector2<int> leftJoystick(controllerInputs[0], controllerInputs[1]);
