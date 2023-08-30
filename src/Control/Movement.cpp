@@ -3,6 +3,10 @@
 #include "../src/Control/Movement.hpp"
 #include "../src/globals.hpp"
 void Movement(int controllerInputs[16]){
+    for (int j = 0; j < 16; j++){
+        std::cout<<controllerInputs[j]<<"_";
+    }
+    std::cout<<std::endl;
     //Movement code goes here:
     //take in joystick inputs
     Vector2<int> leftJoystick(controllerInputs[0], controllerInputs[1]);
@@ -17,15 +21,16 @@ void Movement(int controllerInputs[16]){
         //if positive, turn right, right wheels backward, left wheels forward
         //if negative, turn left, right wheels forward, left wheels backward
         //thus left wheels sign = joystick X sign
-        //thus right wheels sign = -1 * joystick X sign, however right wheels need to be inverted due to motor placement anyway, so we don't invert
+        //thus right wheels sign = -1 * joystick X sign
         motorSides.setX(rightJoystick.getX());
-        motorSides.setY(rightJoystick.getX());
+        motorSides.setY(-rightJoystick.getX());
     }
     
     //add forward/backward to motor group sides vector
     motorSides.add(leftJoystick.getY());
 
     //update motor groups
+    //due to same reason as turning code, right wheel must be negated
     left_mtrs.move(motorSides.getX());
-    right_mtrs.move(motorSides.getY());
+    right_mtrs.move(-motorSides.getY());
 }

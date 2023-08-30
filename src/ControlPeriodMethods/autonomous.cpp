@@ -21,22 +21,31 @@ void autonomousMethod(){
 
 	//iterate through each input line
 	master.set_text(0, 0,"running auton");
+	std::string inputLine;
 	for (int i = 0; i < emulated_input_lines.size(); i++){
 		//get input line string and process into emulated inputs
-		std::string inputLine = emulated_input_lines.at(i);
-		std::cout << inputLine << std::endl;
+		inputLine = emulated_input_lines.at(i);
 
 		//get current input stage's emulated inputs
-		int emulatedInput[16];
+		int emulatedInput[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 		int count = 0;
 		std::string separator = ",";
 		std::string splitPart;
 		size_t pos = 0;
+		int counter = 0;
 		while ((pos = inputLine.find(separator)) != std::string::npos) {
 		    splitPart = inputLine.substr(0, pos);
-		    std::cout << splitPart << std::endl;
+			//set emulated input
+			emulatedInput[counter] = std::stoi(splitPart);
 		    inputLine.erase(0, pos + separator.length());
+			counter = counter + 1;
 		}
+
+		//print array
+		for (int j = 0; j < 16; j++){
+			std::cout<<emulatedInput[j]<<" ";
+		}
+		std::cout<<std::endl;
 
 		//call movement with emulated movement
 		Movement(emulatedInput);
