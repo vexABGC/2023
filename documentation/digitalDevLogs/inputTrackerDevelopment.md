@@ -1,0 +1,8 @@
+# Input tracker
+[//]: # (introduce how the input tracker was a product of the IMUS failure, and explain the basic concept)
+After trying to to develop the failed IMU positioning system, we came up with a better idea for autonomous code. We recognized the issues with typical autonomous code, you either have to fine tune lots of timed movements, or fine tune lots of position based movement -assuming you have a vex GPS. We thus came up with the idea to record controller input, then playback that controller input during autonomous. This would not only allows us to forgo a positioning system, but would also remove any need to fine tune values, and instead just use organic recorded driving in autonomous.
+
+[//]: # (explain how we were able to get input tracked, recorded, played back, and how we could use same code for OP and AUTON)
+In order to track the input and play it back we did 3 main things. We moved our movement code to a function, the only parameter for the function being a integer array of size 16 representing values for every possible input method -both digital and medium- this allowed us to use the same control code for autonomous and operator control despite the autonomous being native input impaired. We created a format with which to represent the integer array in a line, and created a saving/loading system for those lines. The third thing we did was created an interpreter to translate from the saved lines of a file into integer arrays, then pass those inputs to the movement function at the same rate our movement was being recorded / done in operator control.
+
+[//]: # (show input tracking code segments)

@@ -1,15 +1,27 @@
 #include "main.h"
+#include "../src/Graphics/Button.hpp"
 
 //DECLARATIONS ONLY
-//other declarations
-extern int time_delay;
-
-//autonomous locations
+//autonomous selectors and locations
+extern bool autonomousSide; //false = left, true = right
 extern std::string autonomous_code_location;
 
 //regular globals
 extern int time_delay;
 extern int minimum_joystick;
+extern lv_obj_t * tabView;
+extern bool should_avoid;
+extern bool should_track;
+
+//GUI elements
+extern Button autonomous_menu_tab;
+extern Button main_menu_tab;
+extern Button status_menu_tab;
+extern Button autonomous_left;
+extern Button autonomous_right;
+extern Button enemy_avoidance;
+extern Button track_button;
+
 
 //ports
 extern int left_front_mtr_port;
