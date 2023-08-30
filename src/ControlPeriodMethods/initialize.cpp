@@ -1,5 +1,6 @@
 #include "main.h"
 #include <fstream>
+#include "../src/Graphics/Button.hpp"
 #include "../src/globals.hpp"
 #include "../src/ControlPeriodMethods/controlGlobals.hpp"
 #include "../src/ControlPeriodMethods/initialize.hpp"
@@ -38,20 +39,23 @@ void initializeMethod(){
 	//lv_tabview_set_btns_hidden(tabView, true);
 
 	//setup autonomous menu
-	autonomous_menu_button.init(lv_scr_act(), buttonMethod, "Autonomous", 3, LV_COLOR_RED, LV_ALIGN_IN_TOP_LEFT, 0, 0, 160, 80);
-	main_menu_button.init(lv_scr_act(), buttonMethod, "Main Menu", 1, LV_COLOR_GREEN, LV_ALIGN_IN_LEFT_MID, 0, 0, 160, 80);
-	status_menu_button.init(lv_scr_act(), buttonMethod, "Loading", 2, LV_COLOR_BLUE, LV_ALIGN_IN_BOTTOM_LEFT, 0, 0, 160, 80);
+	Button autonomousMenuButton;
+	Button mainMenuButton;
+	Button statusMenuButton;
+	autonomousMenuButton.init(lv_scr_act(), buttonMethod, "Autonomous", 3, LV_COLOR_RED, LV_ALIGN_IN_TOP_LEFT, 0, 0, 160, 80);
+	mainMenuButton.init(lv_scr_act(), buttonMethod, "Main Menu", 1, LV_COLOR_GREEN, LV_ALIGN_IN_LEFT_MID, 0, 0, 160, 80);
+	statusMenuButton.init(lv_scr_act(), buttonMethod, "Loading", 2, LV_COLOR_BLUE, LV_ALIGN_IN_BOTTOM_LEFT, 0, 0, 160, 80);
 	
 	//setup main menu
-	autonomous_menu_button.init(lv_scr_act(), buttonMethod, "Autonomous", 3, LV_COLOR_RED, LV_ALIGN_IN_TOP_LEFT, 0, 0, 160, 80);
-	main_menu_button.init(lv_scr_act(), buttonMethod, "Main Menu", 1, LV_COLOR_GREEN, LV_ALIGN_IN_LEFT_MID, 0, 0, 160, 80);
-	status_menu_button.init(lv_scr_act(), buttonMethod, "Loading", 2, LV_COLOR_BLUE, LV_ALIGN_IN_BOTTOM_LEFT, 0, 0, 160, 80);
+	//autonomousMenuButton.init(lv_scr_act(), buttonMethod, "Autonomous", 3, LV_COLOR_RED, LV_ALIGN_IN_TOP_LEFT, 0, 0, 160, 80);
+	//mainMenuButton.init(lv_scr_act(), buttonMethod, "Main Menu", 1, LV_COLOR_GREEN, LV_ALIGN_IN_LEFT_MID, 0, 0, 160, 80);
+	//statusMenuButton.init(lv_scr_act(), buttonMethod, "Loading", 2, LV_COLOR_BLUE, LV_ALIGN_IN_BOTTOM_LEFT, 0, 0, 160, 80);
 
 	//setup status menu
-	autonomous_menu_button.init(lv_scr_act(), buttonMethod, "Autonomous", 3, LV_COLOR_RED, LV_ALIGN_IN_TOP_LEFT, 0, 0, 160, 80);
-	main_menu_button.init(lv_scr_act(), buttonMethod, "Main Menu", 1, LV_COLOR_GREEN, LV_ALIGN_IN_LEFT_MID, 0, 0, 160, 80);
-	status_menu_button.init(lv_scr_act(), buttonMethod, "Loading", 2, LV_COLOR_BLUE, LV_ALIGN_IN_BOTTOM_LEFT, 0, 0, 160, 80);
+	//autonomousMenuButton.init(lv_scr_act(), buttonMethod, "Autonomous", 3, LV_COLOR_RED, LV_ALIGN_IN_TOP_LEFT, 0, 0, 160, 80);
+	//mainMenuButton.init(lv_scr_act(), buttonMethod, "Main Menu", 1, LV_COLOR_GREEN, LV_ALIGN_IN_LEFT_MID, 0, 0, 160, 80);
+	//statusMenuButton.init(lv_scr_act(), buttonMethod, "Loading", 2, LV_COLOR_BLUE, LV_ALIGN_IN_BOTTOM_LEFT, 0, 0, 160, 80);
 
 	//display ready
-	//status_menu_button.setText("Ready");
+	//statusMenuButton.setText("Ready");
 }

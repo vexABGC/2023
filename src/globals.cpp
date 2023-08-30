@@ -10,8 +10,6 @@ std::string autonomous_code_location = "/usd/autonomousMovement.routine";
 //regular globals
 int time_delay = 20;
 int minimum_joystick = 30;
-bool should_avoid = true;
-bool should_track = false;
 
 //ports
 int left_front_mtr_port = 2;
