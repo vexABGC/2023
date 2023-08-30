@@ -51,6 +51,7 @@ void operatorControlMethod(){
 			master.set_text(0,0,"Auto: "+ trackerCount);
 			//track input
 			InputState inputState;
+			inputState.CompileSaveLine(master);
 			inputStates.push_back(inputState);
 		}else if((!should_track) and previous_should_track){
 			//just ended tracking should save our tracked inputs
@@ -60,7 +61,7 @@ void operatorControlMethod(){
 			//process tracked inputs into file output
 			std::string trackedInputsOutput = "";
 			for (int i = 0; i < inputStates.size(); i++){
-				trackedInputsOutput.append(inputStates[i].CompileSaveLine(master) + "\n");
+				trackedInputsOutput.append(inputStates[i].GetSaveLine() + "\n");
 			}
 			trackedInputsOutput.pop_back();
 

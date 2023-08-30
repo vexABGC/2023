@@ -1,4 +1,6 @@
 #include "main.h"
 class InputState {
-    public:std::string CompileSaveLine(pros::Controller controller);
+    private: std::string saveLine;
+    public: void CompileSaveLine(pros::Controller controller);
+    public: std::string GetSaveLine();
 };
