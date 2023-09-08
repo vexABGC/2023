@@ -1,29 +1,30 @@
+//includes
 #include "main.h"
 
-//DECLARATIONS ONLY
-//autonomous selectors and locations
-extern bool autonomousSide; //false = left, true = right
-extern std::string autonomous_code_location;
-
+//declarations
 //regular globals
 extern int time_delay;
 extern int minimum_joystick;
-extern lv_obj_t * tabView;
+extern double speed_multiplier;
+extern double turn_multiplier;
 
+//autonomous globals
+extern bool should_track;
+extern std::string skills_autonomous_location;
+extern std::string left_autonomous_location;
+extern std::string right_autonomous_location;
+extern std::string autonomous_location;
 
-//ports
-extern int left_front_mtr_port;
-extern int left_back_mtr_port;
-extern int right_front_mtr_port;
-extern int right_back_mtr_port;
-
+//graphics globals
+extern lv_obj_t** objects;
+extern lv_style_t** styles;
 
 //hardware
 extern pros::Controller master;
-extern pros::Motor left_front_mtr;
-extern pros::Motor left_back_mtr;
-extern pros::Motor right_front_mtr;
-extern pros::Motor right_back_mtr;
+extern pros::Motor lf_mtr;
+extern pros::Motor lb_mtr;
+extern pros::Motor rf_mtr;
+extern pros::Motor rb_mtr;
 
 //hardware groups
 extern pros::Motor_Group left_mtrs;

@@ -14,6 +14,10 @@ class Vector2{
         this->x += value;
         this->y += value;
     }
+    public: void scale(T value){
+        this->x *= value;
+        this->y *= value;
+    }
     public: void setX(T value){
         this->x = value;
     }

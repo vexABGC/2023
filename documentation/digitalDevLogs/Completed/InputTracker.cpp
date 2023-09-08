@@ -27,7 +27,7 @@ pros::Controller master(pros::E_CONTROLLER_MASTER);
 pros::Motor left_mtr(left_mtr_port);
 pros::Motor right_mtr(right_mtr_port);
 
-std::string autonomous_code_location = "/usd/autonomousMovement.routine";
+std::string autonomous_location = "/usd/autonomousMovement.routine";
 bool should_track = false;
 bool previous_should_track = should_track;
 vector<string> emulated_input_lines;
@@ -46,7 +46,7 @@ void Movement(int controllerInputs[16]){
 //file loading(INSIDE VEX INITIALIZE)
 //load file and split input lines
 string line;
-ifstream inputFile(autonomous_code_location);
+ifstream inputFile(autonomous_location);
 if (inputFile.is_open()){
 	while (getline(inputFile, line))
 	{
@@ -164,7 +164,7 @@ while (true) {
 		trackedInputsOutput.pop_back();
 
 		//save processed tracked inputs
-		FILE* usd_input_save = fopen(autonomous_code_location.c_str(), "w");
+		FILE* usd_input_save = fopen(autonomous_location.c_str(), "w");
 		fputs(trackedInputsOutput.c_str(), usd_input_save);
 		fclose(usd_input_save);
 	}

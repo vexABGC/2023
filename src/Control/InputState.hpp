@@ -1,6 +1,9 @@
+//includes
 #include "main.h"
+
+//declaration
 class InputState {
     private: std::string saveLine;
-    public: void CompileSaveLine(pros::Controller controller);
+    public: InputState(pros::Controller controller);
     public: std::string GetSaveLine();
 };
