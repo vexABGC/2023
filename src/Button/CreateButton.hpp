@@ -1,2 +1,2 @@
 #include "main.h"
-extern void createButton(lv_obj_t* button, lv_style_t* style, uint32_t number, lv_color_t color, lv_align_t alignment, std::string text);
+extern void createButton(uint32_t number, lv_coord_t width, lv_coord_t height, lv_coord_t shiftX, lv_coord_t shiftY, lv_color_t color, lv_align_t alignment, std::string text);

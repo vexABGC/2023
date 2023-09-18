@@ -17,8 +17,8 @@ std::string right_autonomous_location = "/usd/right.routine";
 std::string autonomous_location = left_autonomous_location;
 
 //graphics globals
-lv_obj_t** objects = new lv_obj_t*[4];
-lv_style_t** styles = new lv_style_t*[4];
+lv_obj_t** objects = new lv_obj_t*[5];
+lv_style_t* styles = new lv_style_t[5];
 
 //hardware
 pros::Controller master(pros::E_CONTROLLER_MASTER);

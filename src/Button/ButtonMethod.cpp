@@ -6,50 +6,41 @@
 //button method
 lv_res_t buttonMethod(lv_obj_t* btn){
 	int id = lv_obj_get_free_num(btn);
-	master.set_text(0,0,std::to_string(id));
 	switch (id)
 	{
-		case 1:
+		case 0:
 			//autonomous track button pressed
 			//enable autonomous tracking and rumble controller
 			should_track = true;
 			master.rumble("..");
 			break;
-		case 2:
+		case 1:
 			//left auton button pressed, update autonomous location
 			autonomous_location = left_autonomous_location;
 
-			//change button colors to indicate chosen autonomous
-			(*styles[1]).body.main_color = LV_COLOR_GREEN;
-			(*styles[2]).body.main_color = LV_COLOR_YELLOW;
-			(*styles[3]).body.main_color = LV_COLOR_YELLOW;
-			(*styles[1]).body.grad_color = LV_COLOR_GREEN;
-			(*styles[2]).body.grad_color = LV_COLOR_YELLOW;
-			(*styles[3]).body.grad_color = LV_COLOR_YELLOW;
+			//change button text
+			lv_obj_clean(objects[4]);
+			lv_label_set_text(lv_label_create(objects[4], NULL), "Left");
 			break;
-		case 3:
+		case 2:
 			//right auton button pressed, update autonomous location
 			autonomous_location = right_autonomous_location;
 
-			//change button colors to indicate chosen autonomous
-			(*styles[1]).body.main_color = LV_COLOR_YELLOW;
-			(*styles[2]).body.main_color = LV_COLOR_GREEN;
-			(*styles[3]).body.main_color = LV_COLOR_YELLOW;
-			(*styles[1]).body.grad_color = LV_COLOR_YELLOW;
-			(*styles[2]).body.grad_color = LV_COLOR_GREEN;
-			(*styles[3]).body.grad_color = LV_COLOR_YELLOW;
+			//change button text
+			lv_obj_clean(objects[4]);
+			lv_label_set_text(lv_label_create(objects[4], NULL), "Right");
 			break;
-		case 4:
+		case 3:
 			//skills auton button pressed, update autonomous location
 			autonomous_location = skills_autonomous_location;
 
-			//change button colors to indicate chosen autonomous
-			(*styles[1]).body.main_color = LV_COLOR_YELLOW;
-			(*styles[2]).body.main_color = LV_COLOR_YELLOW;
-			(*styles[3]).body.main_color = LV_COLOR_GREEN;
-			(*styles[1]).body.grad_color = LV_COLOR_YELLOW;
-			(*styles[2]).body.grad_color = LV_COLOR_YELLOW;
-			(*styles[3]).body.grad_color = LV_COLOR_GREEN;
+			//change button text
+			lv_obj_clean(objects[4]);
+			lv_label_set_text(lv_label_create(objects[4], NULL), "Auton");
+			break;
+		case 4:
+			//current mode selected "button"
+			//ignore
 			break;
 	}
 	return LV_RES_OK;

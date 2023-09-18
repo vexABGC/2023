@@ -12,7 +12,7 @@ void disabled() {}
 void competition_initialize() {}
 
 //autonomous mode code
-void autonomous() {}
+void autonomous() { Autonomous(); }
 
 //driver control mode
-void opcontrol() {}
+void opcontrol() { OperatorControl(); }

@@ -17,7 +17,7 @@ extern std::string autonomous_location;
 
 //graphics globals
 extern lv_obj_t** objects;
-extern lv_style_t** styles;
+extern lv_style_t* styles;
 
 //hardware
 extern pros::Controller master;
