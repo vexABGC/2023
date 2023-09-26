@@ -3,7 +3,8 @@
 
 //declaration
 class InputState {
-    private: std::string saveLine;
+    private: int8_t data[16];
+    public: InputState();
     public: InputState(pros::Controller controller);
-    public: std::string GetSaveLine();
+    public: void GetData(int8_t* dataPointer);
 };

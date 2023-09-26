@@ -10,7 +10,6 @@ void Movement(int controllerInputs[16]){
     //take in joystick inputs
     Vector2<int> leftJoystick(controllerInputs[0], controllerInputs[1]);
     Vector2<int> rightJoystick(controllerInputs[2], controllerInputs[3]);
-    std::cout << controllerInputs[0] << " " << controllerInputs[1] <<  " " <<controllerInputs[2] << " " << controllerInputs[3] << "\n";
 
     //split arcade control setup
     //setup motor group sides vector (left, right)
@@ -35,7 +34,6 @@ void Movement(int controllerInputs[16]){
     motorSides.add(leftJoystick.getY());
 
     //update motor groups with speed multiplier scaled values
-    std::cout << motorSides.getX() << " " << motorSides.getY() << "\n";
     left_mtrs.move(motorSides.getX() * speed_multiplier);
     right_mtrs.move(motorSides.getY() * speed_multiplier);
 }

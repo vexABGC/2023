@@ -4,58 +4,49 @@
 #include "../src/globals.hpp"
 #include "../src/Control/Movement.hpp"
 #include <fstream>
-#include <vector>
-
-//usings
-using std::string;
-using std::ifstream;
-using std::getline;
-using std::vector;
 
 //definition
 //autonomous mode code
 void Autonomous(){
-    //declare needed variables
-    vector<string> inputLines;
-
     //rumble to notify of autonomous
     master.rumble("..");
 
-    //load file, split input lines, and store
-    string line;
-    ifstream inputFile(autonomous_location);
-    if (inputFile.is_open()){
-		while (std::getline(inputFile, line))
-		{
-			inputLines.push_back(line);
-		}
-		inputFile.close();
-	}
+    //important numbers
+    int numInputs = 15*1000/time_delay;
 
-    //iterate through each input line
-    for (int lineNum = 0; lineNum < inputLines.size(); lineNum++){
-        //get input line
-        string inputLine = inputLines.at(lineNum);
+    //get file at autonomous location
+    FILE* file = fopen(left_autonomous_location.c_str(), "r");
 
-        //setup necessary variables for next stage, including error handling emulated inputs
-        int emulatedInput[16] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-        int count = 0;
-        string stringValue;
-        size_t pos = 0;
-        
-        //loop through each value of the line
-        while ((pos = inputLine.find(string(","))) != string::npos){
-            //get current string value from line, convert it to an integer, and store in emulated input
-            emulatedInput[count] = std::stoi(inputLine.substr(0, pos));
+    if (file == NULL){
+        std::cout << "open error" << std::endl;
+        return;
+    }
 
-            //erase value
-            inputLine.erase(0, pos + string(",").length());
+    //read file as binary into data
+    char data[numInputs * 16];
+    fgets(data, numInputs*16-100, file);
 
-            //increment counter
-            count = count + 1;
+    std::cout << (int)data[0] << std::endl;
+    std::cout << (int)data[1023] << std::endl;
+    std::cout << (int)data[1024] << std::endl;
+    std::cout << (int)data[1025] << std::endl;
+
+    //close file
+    fclose(file);
+
+    //declare emulated input array
+    int emulatedInput[16];
+
+    //iterate through each input group
+    for (int inputGroup = 0; inputGroup < numInputs; inputGroup++){
+        //iterate through each input of input group
+        for (int inputIndex = 0; inputIndex < 16; inputIndex++){
+            //store data at location (16 times input group plus input index) to emulated input array
+            emulatedInput[inputIndex] = static_cast<int8_t>(data[inputGroup*16 + inputIndex]);
+            std::cout << (int)(data[inputGroup*16 + inputIndex]) << std::endl;
         }
 
-        //pass emulated movement to movement to move
+        //pass emulated movement to movement method to move robot
         Movement(emulatedInput);
 
         //delay until next movement cycle

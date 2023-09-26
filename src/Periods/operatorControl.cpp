@@ -4,12 +4,8 @@
 #include "../src/globals.hpp"
 #include "../src/Control/InputState.hpp"
 #include "../src/Control/Movement.hpp"
-#include <vector>
+#include <fstream>
 #include <iostream>
-
-//using declarations
-using std::vector;
-using std::string;
 
 //definition
 //autonomous mode code
@@ -18,7 +14,8 @@ void OperatorControl(){
     master.rumble("..");
 
     //input tracker local globals
-    vector<InputState> inputStates;
+    int numInputs = 15 * (1000/time_delay);
+    InputState inputStates[750];
     int trackerCount = 0;
     bool previousShouldTrack = false;
     while (true) {
@@ -53,16 +50,16 @@ void OperatorControl(){
             previousShouldTrack = true;
 
             //check if should end tracking
-            if (trackerCount > 15 * (1000/time_delay)){
+            if (trackerCount > numInputs){
                 should_track = false;
             }
 
-            //update tracking count
-            trackerCount += 1;
-
             //track input and store
             InputState inputState(master);
-            inputStates.push_back(inputState);
+            inputStates[trackerCount] = inputState;
+
+            //update tracking count
+            trackerCount += 1;
         }else if((!should_track) && previousShouldTrack){
             //just ended tracking, should save tracked info
             //update previous should track
@@ -71,17 +68,20 @@ void OperatorControl(){
             //rumble to notify end tracking
             master.rumble("..");
 
-            //process tracked inputs into file output
-            string trackedInputsOutput = "";
-			for (int i = 0; i < inputStates.size(); i++){
-				trackedInputsOutput.append(inputStates[i].GetSaveLine() + "\n");
-			}
-			trackedInputsOutput.pop_back();
+            //store inputs
+            //open file at autonomous location
+            std::ofstream file(autonomous_location, std::ios::binary);
 
-            //save processed file output
-            FILE* usd_input_save = fopen(autonomous_location.c_str(), "w");
-            fputs(trackedInputsOutput.c_str(), usd_input_save);
-            fclose(usd_input_save);
+            //setup data pointer, loop through each input state, get input state data, loop through each piece of data, convert each piece, and write each piece
+            int8_t inputData[16];
+            char* dataByte;
+            for (int inputState = 0; inputState < numInputs; inputState++){
+                inputStates[inputState].GetData(inputData);
+                for (int dataIndex = 0; dataIndex < 16; dataIndex++){
+                    dataByte = reinterpret_cast<char *>(&(inputData[dataIndex]));
+                    file.write(dataByte,1);
+                }
+            }
         }
 
         //wait time delay amount until next op control cycle
