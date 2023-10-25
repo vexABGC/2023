@@ -7,6 +7,15 @@
 //definition
 void Movement(int controllerInputs[16]){
     //Movement code goes here:
+    //set intake to 127 if R2 pressed, else set intake to 0
+    int intake = 127*controllerInputs[15];
+
+    //subtract 127 from intake if L2 pressed, else subtract 0
+    intake -= 127*controllerInputs[13];
+
+    //output intake output
+    intake_mtrs.move(intake);
+
     //take in joystick inputs
     Vector2<int> leftJoystick(controllerInputs[0], controllerInputs[1]);
     Vector2<int> rightJoystick(controllerInputs[2], controllerInputs[3]);
@@ -36,4 +45,5 @@ void Movement(int controllerInputs[16]){
     //update motor groups with speed multiplier scaled values
     left_mtrs.move(motorSides.getX() * speed_multiplier);
     right_mtrs.move(motorSides.getY() * speed_multiplier);
+
 }

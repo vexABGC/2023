@@ -25,7 +25,10 @@ extern pros::Motor lf_mtr;
 extern pros::Motor lb_mtr;
 extern pros::Motor rf_mtr;
 extern pros::Motor rb_mtr;
+extern pros::Motor l_intake;
+extern pros::Motor r_intake;
 
 //hardware groups
 extern pros::Motor_Group left_mtrs;
 extern pros::Motor_Group right_mtrs;
+extern pros::Motor_Group intake_mtrs;

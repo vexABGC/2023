@@ -82,6 +82,7 @@ void OperatorControl(){
                     file.write(dataByte,1);
                 }
             }
+            file.close();
         }
 
         //wait time delay amount until next op control cycle

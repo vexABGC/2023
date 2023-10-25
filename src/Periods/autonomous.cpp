@@ -16,7 +16,6 @@ void Autonomous(){
 
     //get file at autonomous location
     FILE* file = fopen(left_autonomous_location.c_str(), "r");
-
     if (file == NULL){
         std::cout << "open error" << std::endl;
         return;
@@ -24,12 +23,7 @@ void Autonomous(){
 
     //read file as binary into data
     char data[numInputs * 16];
-    fgets(data, numInputs*16-100, file);
-
-    std::cout << (int)data[0] << std::endl;
-    std::cout << (int)data[1023] << std::endl;
-    std::cout << (int)data[1024] << std::endl;
-    std::cout << (int)data[1025] << std::endl;
+    fgets(data, numInputs*16, file);
 
     //close file
     fclose(file);
@@ -43,8 +37,10 @@ void Autonomous(){
         for (int inputIndex = 0; inputIndex < 16; inputIndex++){
             //store data at location (16 times input group plus input index) to emulated input array
             emulatedInput[inputIndex] = static_cast<int8_t>(data[inputGroup*16 + inputIndex]);
-            std::cout << (int)(data[inputGroup*16 + inputIndex]) << std::endl;
+            std::cout << (int)(data[inputGroup*16 + inputIndex]) << " ";
         }
+
+        std::cout << std::endl;
 
         //pass emulated movement to movement method to move robot
         Movement(emulatedInput);

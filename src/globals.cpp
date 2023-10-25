@@ -26,7 +26,10 @@ pros::Motor lf_mtr(2, false);
 pros::Motor lb_mtr(3, false);
 pros::Motor rf_mtr(4, true);
 pros::Motor rb_mtr(5, true);
+pros::Motor l_intake(6, false);
+pros::Motor r_intake(7, true);
 
 //hardware groups
 pros::Motor_Group left_mtrs({lf_mtr, lb_mtr});
 pros::Motor_Group right_mtrs({rf_mtr, rb_mtr});
+pros::Motor_Group intake_mtrs({l_intake, r_intake});
