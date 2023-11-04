@@ -14,10 +14,13 @@ void OperatorControl(){
     master.rumble("..");
 
     //input tracker local globals
-    int numInputs = 15 * (1000/time_delay);
+    int numInputs = 750;
     InputState inputStates[750];
     int trackerCount = 0;
     bool previousShouldTrack = false;
+
+    int lastTime = 0;
+    int currTime = 0;
     while (true) {
         //get inputs and store
         int controllerInputs[16] = {
@@ -86,6 +89,9 @@ void OperatorControl(){
         }
 
         //wait time delay amount until next op control cycle
+        currTime = pros::millis();
+        std::cout << currTime - lastTime << std::endl;
+        lastTime = currTime;
         pros::delay(time_delay);
     }
 }
