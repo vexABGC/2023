@@ -8,6 +8,14 @@ extern int minimum_joystick;
 extern double speed_multiplier;
 extern double turn_multiplier;
 
+//easy control code globals (BETA)
+extern int motor_number;
+extern int axis_one[];
+extern int axis_two[];
+extern int axis_one_settings[];
+extern int axis_two_settings[];
+extern int port_numbers[];
+
 //autonomous globals
 extern bool should_track;
 extern std::string skills_autonomous_location;
