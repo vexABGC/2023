@@ -9,14 +9,6 @@ int minimum_joystick = 30;
 double speed_multiplier = 0.5;
 double turn_multiplier = 0.5;
 
-//easy control code globals (BETA)
-int motor_number = 1; //current motor being edited
-int axis_one[8] = {0, 0, 0, 0, 0, 0, 0, 0}; //0 = OFF, 1 = ON, 2 = LX, 3 = -LX, 4 = LY, 5 = -LY, 6 = RX, 7 = -RX, 8 = RY, 9 = -RY
-int axis_two[8] = {0, 0, 0, 0, 0, 0, 0, 0}; //0 = OFF, 1 = ON, 2 = LX, 3 = -LX, 4 = LY, 5 = -LY, 6 = RX, 7 = -RX, 8 = RY, 9 = -RY
-int axis_one_settings[3] = {0, 0, 0};
-int axis_two_settings[3] = {0, 0, 0};
-int port_numbers[8] = {0, 0, 0, 0, 0, 0, 0, 0}; //0 = null
-
 //autonomous globals
 bool should_track = false;
 std::string skills_autonomous_location = "/usd/skills.routine";
