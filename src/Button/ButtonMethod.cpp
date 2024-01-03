@@ -1,10 +1,6 @@
 //includes
-#include <sstream>
 #include "../src/Button/buttonMethod.hpp"
 #include "../src/globals.hpp"
-
-//statics
-#define motorSettings 14
 
 //definition
 //button method
@@ -16,11 +12,12 @@ lv_res_t buttonMethod(lv_obj_t* btn){
 			//autonomous track button pressed
 			//enable autonomous tracking and rumble controller
 			should_track = true;
+			tracker_count = 0;
 			master.rumble("..");
 			break;
 		case 1:
 			//left auton button pressed, update autonomous location
-			autonomous_location = left_autonomous_location;
+			autonomous_mode = 0;
 
 			//change button text
 			lv_obj_clean(objects[4]);
@@ -28,7 +25,7 @@ lv_res_t buttonMethod(lv_obj_t* btn){
 			break;
 		case 2:
 			//right auton button pressed, update autonomous location
-			autonomous_location = right_autonomous_location;
+			autonomous_mode = 1;
 
 			//change button text
 			lv_obj_clean(objects[4]);
@@ -36,14 +33,22 @@ lv_res_t buttonMethod(lv_obj_t* btn){
 			break;
 		case 3:
 			//skills auton button pressed, update autonomous location
-			autonomous_location = skills_autonomous_location;
+			autonomous_mode = 2;
 
 			//change button text
 			lv_obj_clean(objects[4]);
-			lv_label_set_text(lv_label_create(objects[4], NULL), "Auton");
+			lv_label_set_text(lv_label_create(objects[4], NULL), "Skills");
 			break;
 		case 4:
 			//current mode selected "button"
+			//ignore
+			break;
+		case 5:
+			//x position "button"
+			//ignore
+			break;
+		case 6:
+			//y position "button"
 			//ignore
 			break;
 	}

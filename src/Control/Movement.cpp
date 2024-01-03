@@ -1,49 +1,78 @@
 //includes
 #include "main.h"
-#include "../Math/Vector2.hpp"
 #include "../src/Control/Movement.hpp"
 #include "../src/globals.hpp"
+
+//toggle variables and last time toggled variables
+bool wingsOn = false;
+bool flyOn = false;
+uint32_t wingsTime = 0;
+uint32_t flyTime = 0;
 
 //definition
 void Movement(int controllerInputs[16]){
     //Movement code goes here:
-    //set intake to 127 if R2 pressed, else set intake to 0
-    int intake = 127*controllerInputs[15];
+    //update front intake based on L2 and R2
+    f_intake.move(127*(controllerInputs[15]-controllerInputs[13]));
 
-    //subtract 127 from intake if L2 pressed, else subtract 0
-    intake -= 127*controllerInputs[13];
-
-    //output intake output
-    intake_mtrs.move(intake);
-
-    //take in joystick inputs
-    Vector2<int> leftJoystick(controllerInputs[0], controllerInputs[1]);
-    Vector2<int> rightJoystick(controllerInputs[2], controllerInputs[3]);
-
-    //split arcade control setup
-    //setup motor group sides vector (left, right)
-    Vector2<int> motorSides(0,0);
-
-    //overall and teen speed mode toggles
-    speed_multiplier = controllerInputs[14]==1 ? 1 : 0.5;
-    turn_multiplier = controllerInputs[12]==1 ? 1 : 0.5;
-
-    //calculate turning values(0 if less than a minimum set), and set motor group sides vector to calculated turning values
-    if (abs(rightJoystick.getX()) > minimum_joystick){
-        //if positive, turn right, right wheels backward, left wheels forward
-        //if negative, turn left, right wheels forward, left wheels backward
-        //thus left wheels sign = joystick X sign
-        //thus right wheels sign = -1 * joystick X sign
-        //make sure to scale these values with turn multiplier
-        motorSides.setX(rightJoystick.getX() * turn_multiplier);
-        motorSides.setY(-rightJoystick.getX() * turn_multiplier);
+    //fly wheel / back intake toggle
+    if(controllerInputs[9] == 1 && pros::millis() - flyTime > 500){
+        flyOn = !flyOn;
+        flyTime = pros::millis();
     }
-    
-    //add forward/backward to motor group sides vector
-    motorSides.add(leftJoystick.getY());
 
-    //update motor groups with speed multiplier scaled values
-    left_mtrs.move(motorSides.getX() * speed_multiplier);
-    right_mtrs.move(motorSides.getY() * speed_multiplier);
+    //wing toggle
+    if(controllerInputs[8] == 1 && pros::millis() - wingsTime > 500){
+        wingsOn = !wingsOn;
+        wingsTime = pros::millis();
+    }
 
+    //fly wheel / back intake control with check for match load override
+    if(flyOn){
+        if(controllerInputs[13] == 1){
+            b_intake.move(-0.3*127*controllerInputs[13]);
+        }else{
+            b_intake.move(0.7*127);
+        }
+    }else{
+        if(controllerInputs[10] == 1){
+            b_intake.move(127);
+        }else{
+            b_intake.move(-127*controllerInputs[13]);
+        }
+    }
+
+    //wing control with check for 180 degree extension override
+    if(wingsOn){
+        if(controllerInputs[11] == 1){
+            l_wing.move_absolute(180, 200);
+            r_wing.move_absolute(180, 200);
+        }else{
+            l_wing.move_absolute(90, 200);
+            r_wing.move_absolute(90, 200);
+        }
+    }else{
+        if(controllerInputs[11] == 1){
+            l_wing.move_absolute(180, 200);
+            r_wing.move_absolute(180, 200);
+        }else{
+            l_wing.move_absolute(0, 200);
+            r_wing.move_absolute(0, 200);
+        }
+    }
+
+    //movement control
+    //setup up forward/back on motors
+    int lft = controllerInputs[1];
+    int rgt = controllerInputs[1];
+
+    //setup up turning on motors
+    if(abs(controllerInputs[2]) > minimum_joystick){
+        lft += controllerInputs[2] * turn_multiplier;
+        rgt -= controllerInputs[2] * turn_multiplier;
+    }
+
+    //move motors
+    left_mtrs.move(lft * speed_multiplier);
+    right_mtrs.move(rgt * speed_multiplier);
 }
