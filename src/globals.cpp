@@ -20,17 +20,16 @@ lv_style_t* styles = new lv_style_t[7];
 
 //hardware
 pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::Motor lf_mtr(5, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor lb_mtr(8, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rf_mtr(6, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rb_mtr(9, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor f_intake(7, false);
-pros::Motor b_intake(10, true);
-pros::Motor l_wing(2, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor r_wing(3, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::ADIEncoder l_encoder(1, 2, false);
-pros::ADIEncoder r_encoder(3, 4, true);
-pros::ADIEncoder b_encoder(5, 6, true);
+pros::Motor lf_mtr(19, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor lb_mtr(18, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor rf_mtr(9, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor rb_mtr(17, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor f_intake(11, false);
+pros::Motor b_intake(16, true);
+pros::Motor l_wing(20, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor r_wing(12, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::ADIDigitalOut l_piston('A');
+pros::ADIDigitalOut r_piston('B');
 
 //hardware groups
 pros::Motor_Group left_mtrs({lf_mtr, lb_mtr});

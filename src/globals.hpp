@@ -30,9 +30,8 @@ extern pros::Motor f_intake;
 extern pros::Motor b_intake;
 extern pros::Motor l_wing;
 extern pros::Motor r_wing;
-extern pros::ADIEncoder l_encoder;
-extern pros::ADIEncoder r_encoder;
-extern pros::ADIEncoder b_encoder;
+extern pros::ADIDigitalOut l_piston;
+extern pros::ADIDigitalOut r_piston;
 
 //hardware groups
 extern pros::Motor_Group left_mtrs;

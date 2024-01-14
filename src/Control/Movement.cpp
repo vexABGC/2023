@@ -53,12 +53,23 @@ void Movement(int controllerInputs[16]){
         }
     }else{
         if(controllerInputs[11] == 1){
-            l_wing.move_absolute(180, 200);
+            l_wing.move_absolute(270, 200);
             r_wing.move_absolute(180, 200);
         }else{
             l_wing.move_absolute(0, 200);
             r_wing.move_absolute(0, 200);
         }
+    }
+
+    //pneumatics control
+    if (controllerInputs[4] == 1){
+        //flip up pneumatics
+        l_piston.set_value(true);
+        r_piston.set_value(true);
+    }else if(controllerInputs[5] == 1){
+        //flip down pneumatics
+        l_piston.set_value(false);
+        r_piston.set_value(false);
     }
 
     //movement control

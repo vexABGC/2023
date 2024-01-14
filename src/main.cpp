@@ -1,9 +1,13 @@
 //includes
 #include "main.h"
+#include "../src/globals.hpp"
 #include "../src/Periods/periods.hpp"
 
 //initialization of program code, NOTE: blocks other competition modes
-void initialize() {Initialize();}
+void initialize() {
+    master.rumble("..");
+    Initialize();
+}
 
 //disabled code, runs during the disabled state of Field Management System or the VEX Competition Switch, following either autonomous or opcontrol
 void disabled() {}
