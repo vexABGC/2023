@@ -30,7 +30,7 @@ void Movement(int controllerInputs[16]){
     //fly wheel / back intake control with check for match load override
     if(flyOn){
         if(controllerInputs[13] == 1){
-            b_intake.move(-0.3*127*controllerInputs[13]);
+            b_intake.move(0);
         }else{
             b_intake.move(0.7*127);
         }
@@ -38,7 +38,7 @@ void Movement(int controllerInputs[16]){
         if(controllerInputs[10] == 1){
             b_intake.move(127);
         }else{
-            b_intake.move(-127*controllerInputs[13]);
+            b_intake.move(0);
         }
     }
 
@@ -53,7 +53,7 @@ void Movement(int controllerInputs[16]){
         }
     }else{
         if(controllerInputs[11] == 1){
-            l_wing.move_absolute(270, 200);
+            l_wing.move_absolute(180, 200);
             r_wing.move_absolute(180, 200);
         }else{
             l_wing.move_absolute(0, 200);
@@ -71,11 +71,26 @@ void Movement(int controllerInputs[16]){
         l_piston.set_value(false);
         r_piston.set_value(false);
     }
+    //pneumatics control
+    if (controllerInputs[7] == 1){
+        //flip up pneumatics
+        f_piston.set_value(true);
+    }else if(controllerInputs[6] == 1){
+        //flip down pneumatics
+        f_piston.set_value(false);
+    }
 
     //movement control
     //setup up forward/back on motors
     int lft = controllerInputs[1];
     int rgt = controllerInputs[1];
+
+    //speed control
+    if (controllerInputs[14] == 1){
+        speed_multiplier = 1;
+    }else{
+        speed_multiplier = 0.5;
+    }
 
     //setup up turning on motors
     if(abs(controllerInputs[2]) > minimum_joystick){

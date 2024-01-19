@@ -32,6 +32,7 @@ extern pros::Motor l_wing;
 extern pros::Motor r_wing;
 extern pros::ADIDigitalOut l_piston;
 extern pros::ADIDigitalOut r_piston;
+extern pros::ADIDigitalOut f_piston;
 
 //hardware groups
 extern pros::Motor_Group left_mtrs;
