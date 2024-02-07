@@ -1,5 +1,5 @@
 //includes
-#include "../src/Button/buttonMethod.hpp"
+#include "../src/Button/ButtonMethod.hpp"
 #include "../src/globals.hpp"
 
 //definition

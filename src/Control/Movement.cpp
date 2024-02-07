@@ -8,6 +8,7 @@ bool wingsOn = false;
 bool flyOn = false;
 uint32_t wingsTime = 0;
 uint32_t flyTime = 0;
+int elevationDegrees = 0;
 
 //definition
 void Movement(int controllerInputs[16]){
@@ -61,23 +62,17 @@ void Movement(int controllerInputs[16]){
         }
     }
 
-    //pneumatics control
+    //elevation control
     if (controllerInputs[4] == 1){
-        //flip up pneumatics
-        l_piston.set_value(true);
-        r_piston.set_value(true);
+        //move up pneumatics
+        elevation.move_velocity(200);
+        elevationDegrees = elevation.get_position();
     }else if(controllerInputs[5] == 1){
-        //flip down pneumatics
-        l_piston.set_value(false);
-        r_piston.set_value(false);
-    }
-    //pneumatics control
-    if (controllerInputs[7] == 1){
-        //flip up pneumatics
-        f_piston.set_value(true);
-    }else if(controllerInputs[6] == 1){
-        //flip down pneumatics
-        f_piston.set_value(false);
+        //move down 
+        elevation.move_velocity(-200);
+        elevationDegrees = elevation.get_position();
+    }else{
+        elevation.move_absolute(elevationDegrees, 60);
     }
 
     //movement control

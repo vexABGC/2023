@@ -7,8 +7,7 @@
 #include <fstream>
 
 //constants
-#define inputsLR 750
-#define inputsS 3000
+#define numInputs 750
 
 //definition
 //autonomous mode code
@@ -29,8 +28,19 @@ void Autonomous(){
         return;
     }
 
-    //get number of input groups for mode selected
-    int numInputs = ((autonomous_mode == 2) ? inputsS : inputsLR);
+    //first 45 seconds of skills (if skills)
+    if (autonomous_mode == 2){
+        int startTime = pros::millis();
+        while (pros::millis() - startTime < 45000){
+            b_intake.move(127);
+            l_wing.move_absolute(90, 200);
+            r_wing.move_absolute(90, 200);
+            pros::delay(100);
+        }
+        b_intake.move(0);
+        l_wing.move_absolute(0, 200);
+        r_wing.move_absolute(0, 200);
+    }
 
     //declare variables for reading and parsing inputs
     int inputs[16] = {};
@@ -42,7 +52,7 @@ void Autonomous(){
         for (int input = 0; input < 16; input++){
             //get data and store into inputs
             file.read(&byte, 1);
-            inputs[input] = byte;
+            inputs[input] = (int8_t) byte;
 
             //DEBUG: print byte
             std::cout << byte << " ";

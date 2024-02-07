@@ -9,11 +9,7 @@
 #include <iostream>
 
 //constants
-#define inputsLR 750
-#define inputsS 3000
-
-#define valuesLR 2250
-#define valuesS 9000
+#define numInputs 750
 
 //definition
 //autonomous mode code
@@ -52,11 +48,8 @@ void OperatorControl(){
         //input tracking
         //check if should track
         if(should_track){
-            //get maximum tracks for mode tracked
-            int maxTrack = ((autonomous_mode == 2) ? inputsS : inputsLR);
-
             //check if regular tracking or end of tracking
-            if(tracker_count < maxTrack){
+            if(tracker_count < numInputs){
                 //track input and store
                 for (int i = 0; i < 16; i++){
                     inputs[tracker_count*16 + i] = controllerInputs[i];
@@ -75,7 +68,7 @@ void OperatorControl(){
                 std::ofstream file(fileName.str(), std::ios::binary);
 
                 //loop through each recorded data point and write to file
-                for (int i = 0; i < maxTrack * 16; i++){
+                for (int i = 0; i < numInputs * 16; i++){
                     file.write(reinterpret_cast<const char*>(&(inputs[i])), 1);
                 }
 
