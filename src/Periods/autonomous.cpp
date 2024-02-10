@@ -20,21 +20,24 @@ void Autonomous(){
     fileName << "/usd/";
     fileName << autonomous_mode;
     fileName << ".routine";
+    std::cout << fileName.str() << std::endl;
 
     //get file at autonomous location
     std::ifstream file(fileName.str());
     if (!file.is_open()){
         std::cout << "open error" << std::endl;
-        return;
     }
 
     //first 45 seconds of skills (if skills)
     if (autonomous_mode == 2){
         int startTime = pros::millis();
+        std::cout << pros::millis() - startTime << std::endl;
+        int inputs[16] = {0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0};
+        Movement(inputs);
         while (pros::millis() - startTime < 45000){
-            b_intake.move(127);
-            l_wing.move_absolute(90, 200);
-            r_wing.move_absolute(90, 200);
+            std::cout << pros::millis() - startTime << std::endl;
+            //l_wing.move_absolute(90, 200);
+            //r_wing.move_absolute(90, 200);
             pros::delay(100);
         }
         b_intake.move(0);
