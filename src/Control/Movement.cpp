@@ -63,16 +63,16 @@ void Movement(int controllerInputs[16]){
     }
 
     //elevation control
-    if (controllerInputs[4] == 1){
+    if (controllerInputs[5] == 1){
         //move up pneumatics
-        elevation.move_velocity(200);
+        elevation.move_velocity(60);
         elevationDegrees = elevation.get_position();
-    }else if(controllerInputs[5] == 1){
+    }else if(controllerInputs[4] == 1){
         //move down 
-        elevation.move_velocity(-200);
+        elevation.move_velocity(-60);
         elevationDegrees = elevation.get_position();
-    }else{
-        elevation.move_absolute(elevationDegrees, 60);
+    }else {
+        elevation.move_velocity(0);
     }
 
     //movement control

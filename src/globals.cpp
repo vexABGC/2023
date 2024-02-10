@@ -20,15 +20,15 @@ lv_style_t* styles = new lv_style_t[7];
 
 //hardware
 pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::Motor lf_mtr(17, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor lb_mtr(19, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rf_mtr(12, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rb_mtr(20, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor f_intake(3, true);
-pros::Motor b_intake(14, true); // FLYWHEEL
-pros::Motor l_wing(13, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor r_wing(15, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor elevation(18, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor lf_mtr(3, pros::E_MOTOR_GEAR_BLUE, false , pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor lb_mtr(4, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor rf_mtr(2, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor rb_mtr(7, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor f_intake(20, true);
+pros::Motor b_intake(8, true); // FLYWHEEL
+pros::Motor l_wing(1, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor r_wing(5, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Motor elevation(6, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
 
 //hardware groups
 pros::Motor_Group left_mtrs({lf_mtr, lb_mtr});
