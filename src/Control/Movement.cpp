@@ -1,5 +1,5 @@
 // Elevation Speed
-#define ELEVATION_SPEED 100
+#define ELEVATION_SPEED 130
 
 //includes
 #include "main.h"
@@ -11,20 +11,12 @@ bool wingsOn = false;
 bool flyOn = false;
 uint32_t wingsTime = 0;
 uint32_t flyTime = 0;
-int elevationDegrees = 0;
+int lElevationDegrees = 0;
+int rElevationDegrees = 0;
 
 //definition
 void Movement(int controllerInputs[16]){
-    //Movement code goes here:
-    //update front intake based on L2 and R2
-    f_intake.move(127*(controllerInputs[15]-controllerInputs[13]));
-
-    //fly wheel / back intake toggle
-    if(controllerInputs[9] == 1 && pros::millis() - flyTime > 500){
-        flyOn = !flyOn;
-        flyTime = pros::millis();
-    }
-
+    //movement code goes here:
     //wing toggle
     if(controllerInputs[8] == 1 && pros::millis() - wingsTime > 500){
         wingsOn = !wingsOn;
@@ -32,33 +24,25 @@ void Movement(int controllerInputs[16]){
     }
 
     //fly wheel / back intake control with check for match load override
-    if(flyOn){
-        if(controllerInputs[13] == 1){
-            b_intake.move(0);
-        }else{
-            b_intake.move(0.7*127);
-        }
+    if(controllerInputs[12] == 1){
+        b_intake.move(127);
     }else{
-        if(controllerInputs[10] == 1){
-            b_intake.move(127);
-        }else{
-            b_intake.move(0);
-        }
+        b_intake.move(0);
     }
 
     //wing control with check for 180 degree extension override
     if(wingsOn){
         if(controllerInputs[11] == 1){
-            l_wing.move_absolute(180, 200);
-            r_wing.move_absolute(180, 200);
+            l_wing.move_absolute(210, 200);
+            r_wing.move_absolute(210, 200);
         }else{
             l_wing.move_absolute(90, 200);
             r_wing.move_absolute(90, 200);
         }
     }else{
         if(controllerInputs[11] == 1){
-            l_wing.move_absolute(180, 200);
-            r_wing.move_absolute(180, 200);
+            l_wing.move_absolute(210, 200);
+            r_wing.move_absolute(210, 200);
         }else{
             l_wing.move_absolute(0, 200);
             r_wing.move_absolute(0, 200);
@@ -70,15 +54,17 @@ void Movement(int controllerInputs[16]){
         //move up pneumatics
         l_elevation.move_velocity(ELEVATION_SPEED);
         r_elevation.move_velocity(ELEVATION_SPEED);
-        elevationDegrees = l_elevation.get_position();
+        lElevationDegrees = l_elevation.get_position();
+        rElevationDegrees = l_elevation.get_position();
     }else if(controllerInputs[4] == 1){
         //move down 
         l_elevation.move_velocity(-ELEVATION_SPEED);
         r_elevation.move_velocity(-ELEVATION_SPEED);
-        elevationDegrees = l_elevation.get_position();
+        lElevationDegrees = l_elevation.get_position();
+        rElevationDegrees = l_elevation.get_position();
     }else {
-        l_elevation.move_absolute(elevationDegrees, 150);
-        r_elevation.move_absolute(elevationDegrees, 150);
+        l_elevation.move_absolute(lElevationDegrees, 150);
+        r_elevation.move_absolute(rElevationDegrees, 150);
     }
 
     //movement control
