@@ -1,3 +1,6 @@
+// Elevation Speed
+#define ELEVATION_SPEED 100
+
 //includes
 #include "main.h"
 #include "../src/Control/Movement.hpp"
@@ -62,17 +65,20 @@ void Movement(int controllerInputs[16]){
         }
     }
 
-    //elevation control
+    // elevation control
     if (controllerInputs[5] == 1){
         //move up pneumatics
-        elevation.move_velocity(60);
-        elevationDegrees = elevation.get_position();
+        l_elevation.move_velocity(ELEVATION_SPEED);
+        r_elevation.move_velocity(ELEVATION_SPEED);
+        elevationDegrees = l_elevation.get_position();
     }else if(controllerInputs[4] == 1){
         //move down 
-        elevation.move_velocity(-60);
-        elevationDegrees = elevation.get_position();
+        l_elevation.move_velocity(-ELEVATION_SPEED);
+        r_elevation.move_velocity(-ELEVATION_SPEED);
+        elevationDegrees = l_elevation.get_position();
     }else {
-        elevation.move_velocity(0);
+        l_elevation.move_absolute(elevationDegrees, 150);
+        r_elevation.move_absolute(elevationDegrees, 150);
     }
 
     //movement control
