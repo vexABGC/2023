@@ -63,13 +63,13 @@ void Movement(int controllerInputs[16]){
     }
 
     //elevation control
-    if (controllerInputs[4] == 1){
+    if (controllerInputs[5] == 1){
         //move up pneumatics
-        elevation.move_velocity(200);
+        elevation.move_velocity(60);
         elevationDegrees = elevation.get_position();
-    }else if(controllerInputs[5] == 1){
+    }else if(controllerInputs[4] == 1){
         //move down 
-        elevation.move_velocity(-200);
+        elevation.move_velocity(-60);
         elevationDegrees = elevation.get_position();
     }else{
         elevation.move_absolute(elevationDegrees, 60);
@@ -82,7 +82,7 @@ void Movement(int controllerInputs[16]){
 
     //speed control
     if (controllerInputs[14] == 1){
-        speed_multiplier = 1;
+        speed_multiplier = 0.8;
     }else{
         speed_multiplier = 0.5;
     }
@@ -94,6 +94,11 @@ void Movement(int controllerInputs[16]){
     }
 
     //move motors
-    left_mtrs.move(lft * speed_multiplier);
-    right_mtrs.move(rgt * speed_multiplier);
+    if (lft != 0 || rgt != 0){
+        left_mtrs.move(lft * speed_multiplier);
+        right_mtrs.move(rgt * speed_multiplier);
+    }else{
+        left_mtrs.brake();
+        right_mtrs.brake();
+    }
 }

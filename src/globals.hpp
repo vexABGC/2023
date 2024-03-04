@@ -1,9 +1,6 @@
 //includes
 #include "main.h"
 
-//definitions
-#define PI 3.141592653589793
-
 //declarations
 //regular globals
 extern int time_delay;

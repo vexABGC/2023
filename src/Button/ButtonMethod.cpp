@@ -43,14 +43,6 @@ lv_res_t buttonMethod(lv_obj_t* btn){
 			//current mode selected "button"
 			//ignore
 			break;
-		case 5:
-			//x position "button"
-			//ignore
-			break;
-		case 6:
-			//y position "button"
-			//ignore
-			break;
 	}
 	return LV_RES_OK;
 }

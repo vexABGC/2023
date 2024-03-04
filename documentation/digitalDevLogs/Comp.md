@@ -1,0 +1,2 @@
+# Pre-competition 1/2/3 code revisions
+The code was not majorly changed 10/3 (a big reason for a lack of continued documentation). The only code that really changed was the movement code. We added new features like wings, toggling flywheels, and changed some button layouts. The revised autonomous system was only revised to fix minor bugs (mostly variable typing bugs). I also then around competition 2 / competition 3 worked on elevation code (both for pneumatics and motors as the design changed). Other than that ports were changed to accommodate new wiring layouts.
