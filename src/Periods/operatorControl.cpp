@@ -19,9 +19,6 @@ void OperatorControl(){
 
     //input tracker local globals
     int8_t inputs[12000] = {};
-
-    //move elevation arm down
-    elevation.move_absolute(150, 60);
     
     //control loop
     while (true) {
