@@ -19,6 +19,7 @@ extern lv_style_t* styles;
 
 //hardware
 extern pros::Controller master;
+extern pros::Rotation b_wheel;
 extern pros::Motor lf_mtr;
 extern pros::Motor lb_mtr;
 extern pros::Motor rf_mtr;

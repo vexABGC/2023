@@ -20,10 +20,11 @@ lv_style_t* styles = new lv_style_t[5];
 
 //hardware
 pros::Controller master(pros::E_CONTROLLER_MASTER);
-pros::Motor lf_mtr(15, pros::E_MOTOR_GEAR_BLUE, false , pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor lb_mtr(1, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rf_mtr(18, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
-pros::Motor rb_mtr(3, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_DEGREES);
+pros::Rotation b_wheel(5, false);
+pros::Motor lf_mtr(15, pros::E_MOTOR_GEAR_BLUE, false , pros::E_MOTOR_ENCODER_ROTATIONS);
+pros::Motor lb_mtr(1, pros::E_MOTOR_GEAR_BLUE, false, pros::E_MOTOR_ENCODER_ROTATIONS);
+pros::Motor rf_mtr(18, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_ROTATIONS);
+pros::Motor rb_mtr(3, pros::E_MOTOR_GEAR_BLUE, true, pros::E_MOTOR_ENCODER_ROTATIONS);
 pros::Motor b_intake(8, false); // FLYWHEEL
 pros::Motor l_wing(9, pros::E_MOTOR_GEAR_GREEN, true, pros::E_MOTOR_ENCODER_DEGREES);
 pros::Motor r_wing(2, pros::E_MOTOR_GEAR_GREEN, false, pros::E_MOTOR_ENCODER_DEGREES);
