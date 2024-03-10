@@ -77,18 +77,23 @@ void Autonomous(){
         std::cout << "open error" << std::endl;
     }
 
-    //first 45 seconds of skills (if skills)
+    //skills (if skills)
     if (autonomous_mode == 2){
         int startTime = pros::millis();
         std::cout << pros::millis() - startTime << std::endl;
-        while (pros::millis() - startTime < 15000){
+        while (pros::millis() - startTime < 70000){
             std::cout << pros::millis() - startTime << std::endl;
-            b_intake.move(127);
-            l_elevation.move_absolute(80, 150);
-            r_elevation.move_absolute(80, 150);
-            l_wing.move_absolute(135, 100);
+            b_intake.move(95);
+            l_elevation.move_absolute(-5 * 25, 150);
+            r_elevation.move_absolute(-5 * 25, 150);
+            if (pros::millis() - startTime > 5000){
+                l_wing.move_absolute(l_wing.get_position(), 100);
+            }else{
+                l_wing.move_absolute(135, 100);
+            }
             pros::delay(100);
         }
+        //DEAD past here
         //end of flywheel time, time to move using odom
         //turn off wheel, close wings
         l_elevation.move_absolute(0, 20);

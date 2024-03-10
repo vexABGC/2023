@@ -12,21 +12,45 @@ bool wingsOn = false;
 bool flyOn = false;
 uint32_t wingsTime = 0;
 uint32_t flyTime = 0;
-int lElevationDegrees = 110;
-int rElevationDegrees = 110;
+int lElevationDegrees = -5*100;
+int rElevationDegrees = -5*100;
+int32_t isOverTempPrev[] = {false, false, false}; //fly, l elevation, r elevation
 
 //definition
 void Movement(int controllerInputs[16]){
     //movement code goes here:
+    //check over temp
+    int32_t isOverTemp[] = {b_intake.is_over_temp(), l_elevation.is_over_temp(), r_elevation.is_over_temp()};
+    for (int i = 0; i < sizeof(isOverTemp)/sizeof(isOverTemp[0]); i++){
+        if (isOverTemp[i] == true && isOverTempPrev[i] == false){
+            master.rumble("------");
+        }
+        isOverTempPrev[i] = isOverTemp[i];
+        std::stringstream controllerText;
+        controllerText << "f ";
+        controllerText << isOverTemp[0];
+        controllerText << " ";
+        controllerText << "l ";
+        controllerText << isOverTemp[1];
+        controllerText << " ";
+        controllerText << "r ";
+        controllerText << isOverTemp[2];
+        master.set_text(1, 0, controllerText.str().c_str());
+    }
+
     //wing toggle
-    if(controllerInputs[11] == 1 && pros::millis() - wingsTime > 500){
+    if(controllerInputs[8] == 1 && pros::millis() - wingsTime > 500){
         wingsOn = !wingsOn;
         wingsTime = pros::millis();
     }
 
     //fly wheel / back intake control with check for match load override
     if(controllerInputs[12] == 1){
-        b_intake.move(127);
+        if (controllerInputs[6] == 1){
+            b_intake.move(95);
+        }else{
+            b_intake.move(127);
+        }
     }else{
         b_intake.move(0);
     }
@@ -57,13 +81,24 @@ void Movement(int controllerInputs[16]){
     }
 
     // elevation control
+    if (controllerInputs[11] == 1){
+        lElevationDegrees = -5 * 15;
+        rElevationDegrees = -5 * 15;
+    }else if (controllerInputs[7] == 1){
+        lElevationDegrees = -5 * 185;
+        rElevationDegrees = -5 * 185;
+    }else if (controllerInputs[4] == 1){
+        lElevationDegrees = -5 * 40;
+        rElevationDegrees = -5 * 40;
+    }
+
     if (controllerInputs[5] == 1){
         //move up pneumatics
         l_elevation.move_velocity(ELEVATION_SPEED);
         r_elevation.move_velocity(ELEVATION_SPEED);
         lElevationDegrees = l_elevation.get_position();
         rElevationDegrees = r_elevation.get_position();
-    }else if(controllerInputs[4] == 1){
+    }else if(controllerInputs[9] == 1){
         //move down 
         l_elevation.move_velocity(-ELEVATION_SPEED);
         r_elevation.move_velocity(-ELEVATION_SPEED);

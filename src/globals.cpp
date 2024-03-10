@@ -7,7 +7,7 @@
 int time_delay = 20;
 int minimum_joystick = 30;
 double speed_multiplier = 0.5;
-double turn_multiplier = 0.5;
+double turn_multiplier = 1;
 
 //autonomous globals
 bool should_track = false;
